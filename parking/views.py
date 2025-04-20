@@ -48,6 +48,10 @@ class ReservationViewSet(viewsets.ModelViewSet):
 class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
     serializer_class = CardSerializer
+    permission_classes = [IsAuthenticated]  # عشان لازم تسجيل دخول
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 
